@@ -1,6 +1,6 @@
 package org.heartmatch.dto;
 
-import com.heartmatch.entity.UserRole;
+import org.heartmatch.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

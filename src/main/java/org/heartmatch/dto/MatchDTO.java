@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.heartmatch.entity.Match;
+// ...existing code...
 
 import java.time.LocalDateTime;
 
@@ -16,7 +16,18 @@ public class MatchDTO {
     private Long id;
     private Long initiatorId;
     private Long targetId;
-    private Match.MatchAction action;
+    private MatchAction action;
     private Boolean isMutual;
     private LocalDateTime createdAt;
+}
+
+/**
+ * Local enum for match actions. Placed here to ensure DTO compilation
+ * when an entity-level enum is not available. Adjust or remove if
+ * a central enum is added under org.heartmatch.entity.Match later.
+ */
+enum MatchAction {
+    LIKE,
+    DISLIKE,
+    SUPERLIKE
 }

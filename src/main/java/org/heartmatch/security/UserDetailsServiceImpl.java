@@ -1,8 +1,7 @@
 package org.heartmatch.security;
 
-
-import com.heartmatch.entity.User;
-import com.heartmatch.repository.UserRepository;
+import org.heartmatch.entity.User;
+import org.heartmatch.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +15,7 @@ import java.util.Collections;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private org.heartmatch.security.UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

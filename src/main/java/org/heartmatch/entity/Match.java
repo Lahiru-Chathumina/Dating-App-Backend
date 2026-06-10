@@ -1,50 +1,37 @@
 package org.heartmatch.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
-@Table(name = "matches", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"initiator_id", "target_id"})
-})
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Match {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "initiator_id", nullable = false)
-    private User initiator;
+    private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "target_id", nullable = false)
-    private User target;
+    private User receiver;
 
-    @Column(name = "action")
     @Enumerated(EnumType.STRING)
-    private MatchAction action; // LIKE, PASS
+    private MatchStatus status;
 
-    @Column(name = "is_mutual")
-    private Boolean isMutual = false;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+}
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
-
-    public enum MatchAction {
-        LIKE, PASS
-    }
+enum MatchStatus {
+    PENDING,
+    ACCEPTED,
+    REJECTED
 }

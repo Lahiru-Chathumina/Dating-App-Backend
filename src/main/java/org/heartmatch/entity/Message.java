@@ -1,44 +1,29 @@
 package org.heartmatch.entity;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
-@Table(name = "messages")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Message {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "conversation_id", nullable = false)
     private Conversation conversation;
 
     @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
-    @Column(name = "content", columnDefinition = "TEXT", nullable = false)
-    private String content;
+    private String text;
 
-    @Column(name = "timestamp")
-    private LocalDateTime timestamp;
-
-    @Column(name = "is_read")
-    private Boolean isRead = false;
-
-    @PrePersist
-    protected void onCreate() {
-        timestamp = LocalDateTime.now();
-    }
+    private LocalDateTime sentAt = LocalDateTime.now();
 }
